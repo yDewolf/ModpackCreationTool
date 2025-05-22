@@ -3,16 +3,21 @@ class ConsoleInputHandler:
     def selectFromOptions(message: str, options: list[str], last_as_zero: bool = True) -> int:
         # Print options:
         options_str = ""
-        for option in options:
-            options_str += f"{option}\n"
+        for idx, option in enumerate(options):
+            pos = idx + 1
+            if last_as_zero:
+                pos = idx
+                
+                if idx == len(options) - 1:
+                    pos = 0
+
+            options_str += f"[{pos}]-{option}\n"
         
-        print(options_str)
-
+        print(f"{message}\n{options_str}")
         while True:
-            selected_choice = input(message)
-            choice_idx = int(selected_choice) - 1
+            choice_idx = int(input(">> ")) - 1
 
-            if choice_idx > 0 and choice_idx < len(options):
+            if choice_idx >= 0 and choice_idx < len(options) - int(last_as_zero):
                 return choice_idx
     
     @staticmethod
