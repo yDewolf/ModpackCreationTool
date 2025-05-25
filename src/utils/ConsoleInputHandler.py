@@ -6,7 +6,6 @@ class ConsoleInputHandler:
         for idx, option in enumerate(options):
             pos = idx + 1
             if last_as_zero:
-                pos = idx
                 
                 if idx == len(options) - 1:
                     pos = 0
@@ -15,11 +14,18 @@ class ConsoleInputHandler:
         
         print(f"{message}\n{options_str}")
         while True:
-            choice_idx = int(input(">> ")) - 1
+            choice_idx = int(input(">> ")) - int(not last_as_zero)
 
-            if choice_idx >= 0 and choice_idx < len(options) - int(last_as_zero):
+            if choice_idx >= 0 and choice_idx < len(options):
+                if last_as_zero:
+                    if choice_idx == 0:
+                        return len(options) - 1
+
+                    return choice_idx - 1
+
+
                 return choice_idx
     
     @staticmethod
     def confirmChoice(message: str):
-        return bool(ConsoleInputHandler.selectFromOptions(message, ["Yes", "No"]))
+        return not bool(ConsoleInputHandler.selectFromOptions(message, ["Yes", "No"]))

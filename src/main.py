@@ -11,7 +11,7 @@ def main():
 
     selected_option = ConsoleInputHandler.selectFromOptions(
         "Select one of the options:",
-        ["Update mods", "Create a Release Folder"],
+        ["Update mods", "Create a Release Folder", "Create Modpack Folder"],
         False
     )
     match selected_option:
@@ -19,6 +19,8 @@ def main():
             update_mods_menu(cfg)
         case 1:
             create_release_folder_menu(cfg)
+        case 2:
+            create_modpack_folder_menu(cfg)
 
 def update_mods_menu(cfg: ConfigParser):
     paths_to_update = {
@@ -47,9 +49,16 @@ def update_mods_menu(cfg: ConfigParser):
         if not no_mismatch:
             if ConsoleInputHandler.confirmChoice(f"Update {name.capitalize()} mods?"):
                 updater.updateMods()
+        
+        mismatch_str, no_mismatch = (updater.getMismatchesAsString())
+        print(f"Final mismatches for {name.capitalize()}")
+        print(mismatch_str)
 
 
 def create_release_folder_menu(cfg: ConfigParser):
     pass
+
+def create_modpack_folder_menu(cfg: ConfigParser):
+    pass    
 
 main()
