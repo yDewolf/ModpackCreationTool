@@ -9,18 +9,19 @@ def main():
     cfg = ConfigParser()
     cfg.read("config.ini")
 
-    selected_option = ConsoleInputHandler.selectFromOptions(
-        "Select one of the options:",
-        ["Update mods", "Create a Release Folder", "Create Modpack Folder"],
-        False
-    )
-    match selected_option:
-        case 0:
-            update_mods_menu(cfg)
-        case 1:
-            create_release_folder_menu(cfg)
-        case 2:
-            create_modpack_folder_menu(cfg)
+    while True:
+        selected_option = ConsoleInputHandler.selectFromOptions(
+            "Select one of the options:",
+            ["Update mods", "Create a Release Folder", "Create Modpack Folder"],
+            False
+        )
+        match selected_option:
+            case 0:
+                update_mods_menu(cfg)
+            case 1:
+                create_release_folder_menu(cfg)
+            case 2:
+                create_modpack_folder_menu(cfg)
 
 def update_mods_menu(cfg: ConfigParser):
     paths_to_update = {

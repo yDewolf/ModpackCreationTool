@@ -1,3 +1,2 @@
-cd src
-py main.py
+py src/main.py
 PAUSE
